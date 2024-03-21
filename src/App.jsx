@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import axios from 'axios';
 import './App.css'
 
 const ACCESS_KEY = import.meta.env.MOVIE_API_ACCESS_KEY;
@@ -42,21 +41,41 @@ function App() {
     let response_type = "json";
     let fail_on_status = "400%2C404%2C500-511";
 
-    let query = `https://api.themoviedb.org/3/discover/movie?access_key=${ACCESS_KEY}&language=${inputs.language}&page=${inputs.page}&with_genre=${inputs.genre}&release_date=${inputs.release_date}&append_to_response=credits&wait_until=${wait_until}&response_type=${response_type}&fail_on_status=${fail_on_status}`;
+    let query = `https://api.themoviedb.org/3/discover/movie?`;
+    //let query = `https://api.themoviedb.org/3/discover/movie?access_key=${ACCESS_KEY}&language=${inputs.language}&page=${inputs.page}&with_genre=${inputs.genre}&release_date=${inputs.release_date}&append_to_response=credits&wait_until=${wait_until}&response_type=${response_type}&fail_on_status=${fail_on_status}`;
 
     callAPI(query).catch(console.error);
   }
 
-  const callAPI = async (query) => {
-    const response = await fetch(query);
-    const json = await response.json();
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZTAxODZhNzFjOTE2YzUyNGFiNzFmMzc1OGE4NTUwZiIsInN1YiI6IjY1ZmJiNjZiMDQ3MzNmMDE3ZGU3OWE1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5YIcE5WrEuQMi3dluAir37OnJeBksdbu1q7ov7h2zzA'
+    }
+  };
 
-    setCurrentMovie = json.results[0].title;
+  const randomNum = (max) => {
+    return Math.floor(Math.random() * max);
+  }
+
+  const callAPI = async (query) => {
+    let num = randomNum(500);
+    setInputs({page: num})
+
+    const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${inputs.page}&sort_by=popularity.desc&with_genres=28`, options)
+    const json = await response.json();
+    console.log(json);
+
+    const index = randomNum(20);
+    setCurrentMovie(json.results[index].title);
   }
 
   return (
     <>
-      <p>Hello</p>
+      <h2>Random Movie</h2>
+      <h3>{currentMovie}</h3>
+      <button onClick={makeQuery}>New Movie</button>
     </>
   )
 }
