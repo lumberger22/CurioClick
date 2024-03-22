@@ -14,11 +14,10 @@ function Gallery({ movies }) {
                 <div className="movie-container">
                     {movies && movies.length > 1 ? (
                         movies.slice(1).map((movie, index) => (
-
                             <img
+                                key={index}
                                 className="gallery-image"
                                 src={getImage(movie)}
-                                alt="Undefined image from query"
                                 width="50"
                             />
                         )
