@@ -1,16 +1,16 @@
 import { useState } from 'react'
+import Gallery from './Components/Gallery';
 import './App.css'
 
 const ACCESS_KEY = import.meta.env.MOVIE_API_ACCESS_KEY;
 
 function App() {
-  const [currentMovie, setCurrentMovie] = useState(null);
+  const [currentMovie, setCurrentMovie] = useState({});
   const [prevMovies, setPrevMovies] = useState([]);
   const [inputs, setInputs] = useState({
     language: 'en-US',
     page: '1',
-    index: '1',
-    genre: '',
+    genre: '28',
     release: '',
   });
 
@@ -37,12 +37,7 @@ function App() {
   }
 
   const makeQuery = () => {
-    let wait_until = "network_idle";
-    let response_type = "json";
-    let fail_on_status = "400%2C404%2C500-511";
-
-    let query = `https://api.themoviedb.org/3/discover/movie?`;
-    //let query = `https://api.themoviedb.org/3/discover/movie?access_key=${ACCESS_KEY}&language=${inputs.language}&page=${inputs.page}&with_genre=${inputs.genre}&release_date=${inputs.release_date}&append_to_response=credits&wait_until=${wait_until}&response_type=${response_type}&fail_on_status=${fail_on_status}`;
+    let query = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${inputs.language}&page=${inputs.page}&with_genres=28&append_to_response=credits`;
 
     callAPI(query).catch(console.error);
   }
@@ -63,19 +58,41 @@ function App() {
     let num = randomNum(500);
     setInputs({page: num})
 
-    const response = await fetch(`https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${inputs.page}&sort_by=popularity.desc&with_genres=28`, options)
+    const response = await fetch(query, options)
     const json = await response.json();
     console.log(json);
 
+    
+
     const index = randomNum(20);
-    setCurrentMovie(json.results[index].title);
+    setCurrentMovie(json.results[index]);
+    setPrevMovies((movies) => [...prevMovies, currentMovie]);
+  }
+
+  const getImage = (movie) => {
+    let path = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+    return path;
   }
 
   return (
     <>
+    <div className='leftContainer'>
+      <Gallery movies={prevMovies}/>
+    </div>
+    <div className='middleContainer'>
       <h2>Random Movie</h2>
-      <h3>{currentMovie}</h3>
-      <button onClick={makeQuery}>New Movie</button>
+      <br/>
+      <div className='movieInfoContainer'>
+        <h3>Title: {currentMovie.title}</h3>
+        <br/>
+        <h3>Release Date: {currentMovie.release_date}</h3>
+        <img className='currImage' src={getImage(currentMovie)}/>
+      </div>
+      <button className='discoverButton' onClick={makeQuery}>New Movie</button>
+    </div>
+    <div className='rightContainer'>
+      <h2>Ban List</h2>
+    </div>
     </>
   )
 }
