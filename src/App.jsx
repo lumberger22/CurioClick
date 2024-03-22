@@ -38,13 +38,14 @@ function App() {
   }
 
   const makeQuery = async () => {
-    let query = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${inputs.page}&with_genres=28&append_to_response=credits`;
+    let bannedGenresString = bannedGenres.join(',');
+    let query = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${inputs.page}&without_genres=${bannedGenresString}`;
 
     let index = randomNum(20);
     let movie = await callAPI(query, index).catch(console.error);
     console.log(movie);
     
-    while (movie.poster_path === "" || movie.poster_path === null || await isOnBannedList(movie)) {
+    while (movie.poster_path === "" || movie.poster_path === null) {
       index = randomNum(20);
       console.log(index);
       movie = await callAPI(query, index).catch(console.error);
@@ -73,18 +74,7 @@ function App() {
 
     let response = await fetch(query, options);
     let json = await response.json();
-    console.log(json);
-    return json.results[index];
-  }
-
-  const isOnBannedList = (results) => {
-    for (let i = 0; i < bannedGenres.length; i++) {
-      const tempID = bannedGenres[i];
-      if (results.genre_ids.includes(tempID)) {
-        return true;
-      }
-    }
-    return false;
+    return json.results[0];
   }
 
   const getImage = (movie) => {
