@@ -37,10 +37,21 @@ function App() {
     37: 'Western'
   }
 
-  const makeQuery = () => {
-    let query = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${inputs.language}&page=${inputs.page}&with_genres=28&append_to_response=credits`;
+  const makeQuery = async () => {
+    let query = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${inputs.page}&with_genres=28&append_to_response=credits`;
 
-    callAPI(query).catch(console.error);
+    let index = randomNum(20);
+    let movie = await callAPI(query, index).catch(console.error);
+    console.log(movie);
+    
+    while (movie.poster_path === "" || movie.poster_path === null || await isOnBannedList(movie)) {
+      index = randomNum(20);
+      console.log(index);
+      movie = await callAPI(query, index).catch(console.error);
+    }
+
+    setCurrentMovie(movie);
+    setPrevMovies([...prevMovies, currentMovie]);
   }
 
   const options = {
@@ -55,29 +66,25 @@ function App() {
     return Math.floor(Math.random() * max);
   }
 
-  const callAPI = async (query) => {
+  const callAPI = async (query, index) => {
+    console.log("New API call");
     let num = randomNum(500);
-    const index = randomNum(20);
-    setInputs({page: num})
+    setInputs({page: num});
 
-    const response = await fetch(query, options)
-    const json = await response.json();
+    let response = await fetch(query, options);
+    let json = await response.json();
     console.log(json);
+    return json.results[index];
+  }
 
-    while (json.results[index].poster_path === "") {
-      let num = randomNum(500);
-      const index = randomNum(20);
-      setInputs({page: num})
-
-      const response = await fetch(query, options)
-      const json = await response.json();
-      console.log(json);
+  const isOnBannedList = (results) => {
+    for (let i = 0; i < bannedGenres.length; i++) {
+      const tempID = bannedGenres[i];
+      if (results.genre_ids.includes(tempID)) {
+        return true;
+      }
     }
-
-    
-    setCurrentMovie(json.results[index]);
-    setPrevMovies((movies) => [...prevMovies, currentMovie]);
-    console.log(bannedGenres);
+    return false;
   }
 
   const getImage = (movie) => {
