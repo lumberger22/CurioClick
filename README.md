@@ -1,4 +1,4 @@
-# Web Development Project 4 - CurioClick
+# Web Development Project 4 - FlickFinder
 
 Submitted by: Lucas Umberger
 
