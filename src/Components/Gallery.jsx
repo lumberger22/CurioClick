@@ -11,6 +11,8 @@ function Gallery({ movies }) {
         <>
             <div>
                 <h2>Previous Movies</h2>
+                <h3>See what movies you've seen!</h3>
+                <hr></hr>
                 <div className="movie-container">
                     {movies && movies.length > 1 ? (
                         movies.slice(1).map((movie, index) => (

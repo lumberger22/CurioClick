@@ -102,34 +102,52 @@ function App() {
       <Gallery movies={prevMovies}/>
     </div>
     <div className='middleContainer'>
-      <h2>Random Movie</h2>
-      <br/>
+      <h1 className='title'>Discover a Movie</h1>
       {prevMovies.length > 0 ? (
-        <div className='movieInfoContainer'>
-        <h3>Title: {currentMovie.title}</h3>
-        <br/>
-        <h3>Release Date: {currentMovie.release_date}</h3>
-        <div className='genre-container'>
-          <h3>Genres: </h3>
-          <div>
-            {currentMovie.genre_ids.map((genre, index) => (
-              <h3 onClick={banGenre} key={index} id={index}>{genres[genre]}</h3>
-            ))}
-          </div>
-        </div>        
-        <img className='currImage' src={getImage(currentMovie)}/>
-      </div>
+        <h4>Click a genre to filter it out</h4>
       ) : (
         <br></br>
       )}
+      <br/>
+      <div className='middle-content'>
+        {prevMovies.length > 0 ? (
+          <div className='movieInfoContainer'>
+            <h2>{currentMovie.title}</h2>
+            <br/>
+            <h3 className='release-date'>Release Date: {currentMovie.release_date}</h3>
+            <div>
+              <h3>Genres</h3>
+              <hr></hr>
+              <div className='genre-container'>
+                {currentMovie.genre_ids.map((genre, index) => (
+                  <h3 onClick={banGenre} className='genre grow' key={index} id={index}>{genres[genre]}</h3>
+                ))}
+              </div>
+            </div>       
+        </div>
+        
+        ) : (
+          <h2>Click New Movie to get started</h2>
+        )}
+        {prevMovies.length > 0 ? (
+          <div className='image-container'>
+            <img className='currImage' src={getImage(currentMovie)}/>
+          </div>
+        ) : (
+          <br></br>
+        )}
+      </div>
       <button className='discoverButton' onClick={makeQuery}>New Movie</button>
     </div>
     <div className='rightContainer'>
       <h2>Ban List</h2>
       <h3>Select a movie genre to ban!</h3>
+      <hr></hr>
+      <div className='ban-list'>
       {bannedGenres.map((genre, index) => (
-            <h3 onClick={unbanGenre} key={index} id={genre}>{genres[genre]}</h3>
+            <h3 onClick={unbanGenre} className='unban' key={index} id={genre}>{genres[genre]}</h3>
           ))}
+      </div>
     </div>
     </>
   )

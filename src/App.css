@@ -13,10 +13,14 @@
   margin: 0;
 }
 
+h1 {
+  font-size: 3em;
+  line-height: 10px;
+}
+
 .currImage {
-  width: 100px;
-  height: auto;
-  margin: 30px 0px;
+  width: 250px;
+  margin: 0px;
 }
 
 .discoverButton {
@@ -25,21 +29,105 @@
 
 .leftContainer {
   margin-right: auto;
-  height: 100vh;
+  height: auto;
   text-align: center;
   width: 300px;
+  background-color: rgb(73, 73, 73);
+  line-height: 50px;
+  padding: 10px;
 }
 
 .middleContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100vh;
+}
+
+.middle-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  gap: 30px;
+}
+
+.rightContainer {
+  margin-left: auto;
+  height: auto;
+  text-align: center;
+  width: 300px;
+  background-color: rgb(73, 73, 73);
+  line-height: 50px;
+  padding: 10px;
+}
+
+.ban-list {
+  display: flex;
+  margin-top: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin-top: 50px;
+}
+
+.movieInfoContainer {
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.rightContainer {
-  margin-left: auto;
-  height: 100vh;
-  text-align: center;
+.release-date {
+  margin-bottom: 25px;
+}
+
+.genre-container {
+  display: flex;
+  justify-content: center;
   width: 300px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 50px;
+}
+
+hr {
+  margin-top: 10px;
+}
+  
+.grow:hover { 
+  transform: scale(1.2);
+  color: lightcoral;
+  transition: all .3s ease-in-out; 
+  cursor: pointer;
+}
+
+button {
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.1);
+  transition: all .2s ease-in-out; 
+}
+
+.movie-container {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.unban:hover {
+  transform: scale(1.2);
+  color: lightgreen;
+  transition: all .3s ease-in-out; 
+  cursor: pointer;
 }
