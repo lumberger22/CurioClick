@@ -2,46 +2,51 @@
 
 Submitted by: Lucas Umberger
 
-This web app was created to let people explore topics their interested in, without having to go over the stuff the already know. CurioClick lets your curiosity take the reins with the click of a button. The site allows the user to click a Discover button to display information from the internet related to topics the user is interested in. The user can then filter information from those results to get more and more specific results.
+**This web app was created to let people explore movies they're interested in, without having to go over the stuff the already know. FlickFinder lets you discover movies with the click of a button. The site allows the user to click a New Movie button to display movie information and movie poster aligning with the genres the user is interested in exploring. The user can then filter by movie genre to get more and more specific results.**
 
-Time spent: **X** hours spent in total
+Language: JavaScript, HTML, CSS
 
-## Required Features
+Framework: React
+
+API: TMDB [Documentation](https://themoviedb.org/?language=en-US)
+
+Time spent: **11** hours in total
+
+## User Features
 
 The following **required** functionality is completed:
 
-- [ ] **Clicking a button creates a new API fetch request and displays at least three attributes from the returned JSON data**
-- [ ] **Only one item/API call is viewable at a time**
-- [ ] **API calls appear random to the user**
-- [ ] **At least one image is displayed per API call**
-- [ ] **Clicking on a displayed value for one attribute adds it to a displayed ban list**
-- [ ] **Attributes on the ban list prevent further images/API results with that attribute from being displayed**
+- [x] **Clicking a button creates a new API fetch request and displays at least three attributes from the returned JSON data**
+- [x] **Only one item/API call is viewable at a time**
+- [x] **API calls appear random to the user**
+- [x] **At least one image is displayed per API call**
+- [x] **Clicking on a displayed value for one attribute adds it to a displayed ban list**
+- [x] **Attributes on the ban list prevent further images/API results with that attribute from being displayed**
 
 The following **optional** features are implemented:
 
-- [ ] Multiple types of attributes can be added to the ban list
-- [ ] Users can see a stored history of their previously viewed items from their session
+- [x] Users can see a stored history of their previously viewed items from their session
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you added to improve the site's functionality!
+* [x] Ban list attributes can be taken off of list in session
 
 ## Video Walkthrough
 
-Here's a walkthrough of implemented user stories:
+Here's a walkthrough of implemented user features:
 
-![](./src/walkthrough3.gif)
+![](walkthrough4.gif)
 
 <!-- Replace this with whatever GIF tool you used! -->
-GIF created with ...  
+GIF created with ScreenToGif
 <!-- Recommended tools:
 [Kap](https://getkap.co/) for macOS
 [ScreenToGif](https://www.screentogif.com/) for Windows
 [peek](https://github.com/phw/peek) for Linux. -->
 
-## Notes
+## Challenges
 
-Describe any challenges encountered while building the app.
+ - Accessing the API in the way that I wanted to took up a lot of my time initially. When I was trying to get the information to show I was getting the same results over and over again so I had to implement a random number finder to get a random entry every time. I also struggled with incorperating the ban list because I did not realize the API I was using had a without_genre filter, so I was initally searching new queries each time for the banned genres.
 
 ## License
 
