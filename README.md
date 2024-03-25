@@ -1,5 +1,7 @@
 # Web Development Project 4 - FlickFinder
 
+## Check it out here! -> [Flick Finder](https://lumberger22.github.io/FlickFinder/)
+
 Submitted by: Lucas Umberger
 
 **This web app was created to let people explore movies they're interested in, without having to go over the stuff the already know. FlickFinder lets you discover movies with the click of a button. The site allows the user to click a New Movie button to display movie information and movie poster aligning with the genres the user is interested in exploring. The user can then filter by movie genre to get more and more specific results.**
